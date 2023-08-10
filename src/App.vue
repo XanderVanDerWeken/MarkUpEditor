@@ -1,5 +1,6 @@
 <template>
   <Menubar />
+  <h1>MarkUp Editor</h1>
   <Editor />
   <Makrobar />
 </template>
