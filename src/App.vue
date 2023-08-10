@@ -1,11 +1,13 @@
 <template>
+  <Menubar />
+  <h1>MarkUp Editor</h1>
   <Editor />
   <Makrobar />
 </template>
 
 <script setup lang="ts">
-import Editor from './components/Editor.vue'
-import Makrobar from './components/Makrobar.vue';
+import Menubar from './components/Menubar.vue';
+import Editor from './components/Editor.vue';
 </script>
 
 <style>
