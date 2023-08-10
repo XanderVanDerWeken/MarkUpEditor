@@ -7,8 +7,7 @@
 
 <script setup lang="ts">
 import Menubar from './components/Menubar.vue';
-import Editor from './components/Editor.vue'
-import Makrobar from './components/Makrobar.vue';
+import Editor from './components/Editor.vue';
 </script>
 
 <style>

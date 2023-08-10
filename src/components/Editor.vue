@@ -5,10 +5,12 @@
         </div>
         <div class="editor-preview" v-html="renderedHtml"></div>
     </div>
+    <Makrobar />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import Makrobar from './Makrobar.vue';
 
 const htmlInput = ref("");
 const renderedHtml = ref("");
@@ -35,6 +37,7 @@ textarea {
 
 .editor-preview {
     padding: 10px;
+    width: 100%;
     flex: 1;
     border: 1px solid #ccc;
     overflow: auto;
