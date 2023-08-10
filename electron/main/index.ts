@@ -115,3 +115,16 @@ ipcMain.handle('open-win', (_, arg) => {
     childWindow.loadFile(indexHtml, { hash: arg })
   }
 })
+
+ipcMain.on('menu-action', (event, action) => {
+  switch (action) {
+    case 'create-new-file':
+      break;
+    case 'open-file':
+      break;
+    case 'save-file':
+      break;
+    default:
+      break;
+  }
+})
