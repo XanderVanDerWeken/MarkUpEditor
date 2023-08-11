@@ -1,4 +1,4 @@
-import { ipcMain } from "electron";
+import { ipcMain, ipcRenderer } from "electron";
 import fs from 'fs/promises';
 
 class Filesystem {
@@ -21,7 +21,7 @@ class Filesystem {
             return filecontent;
         });
 
-        ipcMain.handle('get-filenames',async () => {
+        ipcMain.handle('get-filenames', async () => {
             try {
                 const files = await fs.readdir( this.directoryPath );
                 return files;
@@ -30,6 +30,33 @@ class Filesystem {
                 return [];
             }
         })
+    }
+
+    async saveFile(data: string, filename: string): Promise<string | null> {
+        try {
+            return await ipcRenderer.invoke('save-file', data, filename);
+        } catch (error) {
+            console.error( error );
+            return null;
+        }
+    }
+
+    async loadFile(filename: string): Promise<string | null> {
+        try {
+            return await ipcRenderer.invoke('load-file', filename);
+        } catch (error) {
+            console.error( error );
+            return null;
+        }
+    }
+
+    async getFilenames(): Promise<string[]> {
+        try {
+            return await ipcRenderer.invoke('get-filenames');
+        } catch (error) {
+            console.error( error );
+            return [];
+        }
     }
 }
 
