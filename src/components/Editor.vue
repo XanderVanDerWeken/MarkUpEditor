@@ -5,7 +5,7 @@
         </div>
         <div class="editor-preview" v-html="renderedHtml"></div>
     </div>
-    <Makrobar />
+    <Makrobar @insert-value="handleInsertMakro" />
 </template>
 
 <script setup lang="ts">
@@ -17,6 +17,11 @@ const renderedHtml = ref("");
 
 function updatePreview() {
     renderedHtml.value = htmlInput.value;
+}
+
+function handleInsertMakro(value: string) {
+    htmlInput.value += value;
+    updatePreview();
 }
 </script>
 
