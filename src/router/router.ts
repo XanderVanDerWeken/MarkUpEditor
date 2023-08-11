@@ -10,7 +10,7 @@ const routes: Array<RouteRecordRaw> = [
         component: HomeView,
     },
     {
-        path: '/editor',
+        path: '/editor/:filename',
         name: 'editor',
         component: EditorView,
     }
