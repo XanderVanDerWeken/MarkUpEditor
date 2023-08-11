@@ -16,10 +16,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import Makrobar from './Makrobar.vue';
 import Makro from './../models/makro';
 import MakroHelper from './../utils/makrohelper';
+import { useRoute } from 'vue-router';
+import Filesystem from '../utils/filesystem';
+
+const route = useRoute();
+const filesystem = new Filesystem();
 
 const htmlInput = ref("");
 const renderedHtml = ref("");
@@ -41,6 +46,14 @@ function handleInsertMakro(value: Makro) {
         
     }
 }
+
+onMounted( async () => {
+    const filename = route.params.filename as string;
+    const content =  await filesystem.loadFile( filename );
+    if (content !== null) {
+        htmlInput.value = content;
+    }
+});
 </script>
 
 <style scoped>
