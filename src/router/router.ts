@@ -5,7 +5,7 @@ import EditorView from "./../views/EditorView.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
-        path: '/home',
+        path: '/',
         name: 'home',
         component: HomeView,
     },

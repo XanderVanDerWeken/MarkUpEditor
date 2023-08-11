@@ -1,9 +1,9 @@
 <template>
-    <FileShelf />
+    <h2>Alle Dateien</h2>
 </template>
 
 <script setup lang="ts">
-import FileShelf from './../components/FileShelf.vue';
+
 </script>
 
 <style scoped>

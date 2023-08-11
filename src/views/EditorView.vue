@@ -1,5 +1,4 @@
 <template>
-    <Menubar />
     <Editor />
 </template>
 
