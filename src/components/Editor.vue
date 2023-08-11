@@ -52,6 +52,7 @@ onMounted( async () => {
     const content =  await filesystem.loadFile( filename );
     if (content !== null) {
         htmlInput.value = content;
+        updatePreview();
     }
 });
 </script>
