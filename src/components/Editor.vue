@@ -1,7 +1,14 @@
 <template>
     <div class="editor-container">
         <div class="editor-content">
-            <textarea cols="50" rows="30" placeholder="Start Typing here..." v-model="htmlInput" @input="updatePreview()" autofocus></textarea>
+            <textarea 
+            ref="textarea"
+            cols="50" 
+            rows="30" 
+            placeholder="Start Typing here..." 
+            v-model="htmlInput" 
+            @input="updatePreview()" 
+            autofocus></textarea>
         </div>
         <div class="editor-preview" v-html="renderedHtml"></div>
     </div>
@@ -11,17 +18,21 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Makrobar from './Makrobar.vue';
+import Makro from './../models/makro';
+import MakroHelper from './../utils/makrohelper';
 
 const htmlInput = ref("");
 const renderedHtml = ref("");
+const textarea = ref<HTMLTextAreaElement | null>(null);
 
 function updatePreview() {
     renderedHtml.value = htmlInput.value;
 }
 
-function handleInsertMakro(value: string) {
-    htmlInput.value += value;
-    updatePreview();
+function handleInsertMakro(value: Makro) {
+    if (textarea.value) {
+        htmlInput.value = MakroHelper.insertAtPosition(textarea.value, htmlInput.value, value);
+    }
 }
 </script>
 
@@ -47,4 +58,4 @@ textarea {
     border: 1px solid #ccc;
     overflow: auto;
 }
-</style>
+</style>../models/makro
