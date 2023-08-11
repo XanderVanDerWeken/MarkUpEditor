@@ -1,13 +1,16 @@
 <template>
-  <Menubar />
-  <h1>MarkUp Editor</h1>
-  <Editor />
-  <Makrobar />
+  <header>
+    <h1>MarkUp Editor</h1>
+    <a href="/editor">ed</a>
+  </header>
+  
+  <main>
+    <RouterView></RouterView>
+  </main>
 </template>
 
 <script setup lang="ts">
-import Menubar from './components/Menubar.vue';
-import Editor from './components/Editor.vue';
+
 </script>
 
 <style>
