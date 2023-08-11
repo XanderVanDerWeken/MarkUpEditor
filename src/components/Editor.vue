@@ -31,7 +31,7 @@ function updatePreview() {
 
 function handleInsertMakro(value: Makro) {
     if (textarea.value) {
-        htmlInput.value = MakroHelper.insertAtPosition(textarea.value, htmlInput.value, value);
+        htmlInput.value = MakroHelper.insertAroundSelected(textarea.value, htmlInput.value, value);
     }
 }
 </script>

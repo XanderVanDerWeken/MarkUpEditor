@@ -19,13 +19,21 @@ class Makro {
         return this.tag.length + 2 + this.config.length;
     }
 
-    public toString(): string {
+    public getFirstTag(): string {
         if(this.config !== '') {
-            return `<${this.tag} ${this.config}></${this.tag}>`;
+            return `<${this.tag} ${this.config}>`;
         }
         else {
-            return `<${this.tag}></${this.tag}>`;
+            return `<${this.tag}>`;
         }
+    }
+
+    public getEndTag(): string {
+        return `</${this.tag}>`;
+    }
+
+    public toString(): string {
+        return `${this.getFirstTag()}${this.getEndTag()}`;
     }
 }
 

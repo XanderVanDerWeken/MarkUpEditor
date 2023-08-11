@@ -8,29 +8,33 @@ class MakroHelper {
     ) : string {
         const cursorPosition = textArea.selectionStart;
     
-        target = target.slice(0, cursorPosition) + 
+        target = target.substring(0, cursorPosition) + 
             valueToAdd.toString() + 
-            target.slice(cursorPosition);
+            target.substring(cursorPosition);
         textArea.focus();
 
         return target;
     }
 
-    /*static insertAroundSelected(
+    static insertAroundSelected(
         textArea: HTMLTextAreaElement,
         target: string,
-        valueToAdd: string
+        valueToAdd: Makro
     ) : string {
         const cursorStart = textArea.selectionStart;
         const cursorEnd = textArea.selectionEnd;
-
-        target = target.slice(0, cursorPosition) + 
-            valueToAdd + 
-            target.slice(cursorPosition);
+        const selection = target.substring(cursorStart, cursorEnd);
+        
+        target = target.substring(0, cursorStart) + 
+            valueToAdd.getFirstTag() + 
+            selection +
+            valueToAdd.getEndTag() + 
+            target.substring(cursorEnd)
+            
         textArea.focus();
 
-
-    }*/
+        return target;
+    }
 }
 
 export default MakroHelper;
