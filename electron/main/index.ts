@@ -1,6 +1,7 @@
 import { app, BrowserWindow, shell, ipcMain } from 'electron'
 import { release } from 'node:os'
 import { join } from 'node:path'
+import Filesystem from './utils/filesystem'
 
 // The built directory structure
 //
@@ -116,15 +117,5 @@ ipcMain.handle('open-win', (_, arg) => {
   }
 })
 
-ipcMain.on('menu-action', (event, action) => {
-  switch (action) {
-    case 'create-new-file':
-      break;
-    case 'open-file':
-      break;
-    case 'save-file':
-      break;
-    default:
-      break;
-  }
-})
+// Filesystem
+const filesystem = new Filesystem( app.getPath('userData') );

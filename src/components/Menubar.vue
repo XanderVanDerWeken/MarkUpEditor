@@ -1,27 +1,30 @@
 <template>
-    <div class="menubar">
-        <button class="menu-btn" @click="newFile">New File</button>
-        <button class="menu-btn" @click="openFile">Open File</button>
-        <button class="menu-btn" @click="saveFile">Save File</button>
-    </div>
+    <nav>
+        <h3>MarkUp Editor</h3>
+        <button @click="navigate('/')">Home</button>
+    </nav>
 </template>
 
 <script setup lang="ts">
-import { ipcRenderer } from 'electron';
+import router from '../router/router';
 
-function newFile() {
-    ipcRenderer.send('menu-action', 'create-new-file');
-}
-
-function openFile() {
-    ipcRenderer.send('menu-action', 'open-file');
-}
-
-function saveFile() {
-    ipcRenderer.send('menu-action', 'save-file');
+function navigate(path: string) {
+    router.push( path );
 }
 </script>
 
 <style scoped>
+nav {
+    display: inline;
+    background-color: #ddd;
+    padding: 10px;
+}
 
+h3 {
+    display: inline;
+}
+
+button {
+    margin: 5px;
+}
 </style>
