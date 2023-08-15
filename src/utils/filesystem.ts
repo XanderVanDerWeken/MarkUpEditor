@@ -27,6 +27,24 @@ class Filesystem {
             return [];
         }
     }
+
+    async saveConfig(): Promise<string | null> {
+        try {
+            return await ipcRenderer.invoke('save-config');
+        } catch (error) {
+            console.error( error );
+            return null;
+        }
+    }
+
+    async loadConfig(): Promise<string | null> {
+        try {
+            return await ipcRenderer.invoke('load-config');
+        } catch (error) {
+            console.error( error );
+            return null;
+        }
+    }
 }
 
 export default Filesystem;
