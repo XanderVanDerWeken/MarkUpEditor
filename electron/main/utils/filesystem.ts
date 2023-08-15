@@ -30,6 +30,28 @@ class Filesystem {
                 return [];
             }
         })
+
+        ipcMain.handle('save-config', async (_, config: string) => {
+            try {
+                const filepath = `${this.directoryPath}/config.json`;
+                await fs.writeFile(filepath, config);
+                return;
+            } catch (error) {
+                console.error('Error writing config');
+                return;
+            }
+        })
+
+        ipcMain.handle('load-config', async () => {
+            try {
+                const filepath = `${this.directoryPath}/config.json`;
+                const filecontent = await fs.readFile( filepath );
+                return filecontent;
+            } catch (error) {
+                console.error('Error reading config');
+                return;
+            }
+        })
     }
 }
 
