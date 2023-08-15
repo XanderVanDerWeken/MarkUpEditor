@@ -1,4 +1,5 @@
 import { ipcRenderer } from "electron";
+import Config from "../models/config";
 
 class Filesystem {
     async saveFile(data: string, filename: string): Promise<string | null> {
@@ -28,18 +29,25 @@ class Filesystem {
         }
     }
 
-    async saveConfig(): Promise<string | null> {
+    async saveConfig(config: Config): Promise<string | null> {
         try {
-            return await ipcRenderer.invoke('save-config');
+            const configString = JSON.stringify( config );
+            return await ipcRenderer.invoke('save-config', configString);
         } catch (error) {
             console.error( error );
             return null;
         }
     }
 
-    async loadConfig(): Promise<string | null> {
+    async loadConfig(): Promise<Config | null> {
         try {
-            return await ipcRenderer.invoke('load-config');
+            const serializedConfig = await ipcRenderer.invoke('load-config');
+            if( serializedConfig ) {
+                const parsedConfig = JSON.parse( serializedConfig );
+                return new Config();
+            } else {
+                return new Config();
+            }
         } catch (error) {
             console.error( error );
             return null;
