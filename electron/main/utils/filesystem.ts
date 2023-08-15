@@ -47,7 +47,7 @@ class Filesystem {
 
         ipcMain.handle('load-config', async () => {
             try {
-                const filecontent = await fs.readFile( this.configPath );
+                const filecontent = await fs.readFile( this.configPath, 'utf-8' );
                 return filecontent;
             } catch (error) {
                 console.error('Error reading config');
