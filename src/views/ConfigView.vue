@@ -5,10 +5,12 @@
         <div class="makrosTable">
             <table>
                 <thead>
+                    <td>Name</td>
                     <td>Makro</td>
                     <td>Details</td>
                 </thead>
                 <tr v-for="makro in config?.getMakros()">
+                    <td>{{ makro.getName() }}</td>
                     <td>{{ makro.getTag() }}</td>
                     <td>{{ makro.getConfig() }}</td>
                 </tr>
@@ -17,6 +19,12 @@
         <div class="newMakro">
             <form>
                 <h3>Neuer Makro</h3>
+                <label for="newMakroName">Makro Name:</label><br>
+                <input
+                    type="text"
+                    id="newMakroName"
+                    v-model="newMakro.name"
+                ><br>
                 <label for="newMakroTag">Makro Tag:</label><br>
                 <input 
                     type="text"
@@ -29,7 +37,7 @@
                     id="newMakroConfig"
                     v-model="newMakro.config"
                 ><br>
-                <button @click="addNewMakro()">hinzufügen</button>
+                <button @click="addNewMakro()">Hinzufügen</button>
             </form>
         </div>
     </div>
@@ -45,10 +53,14 @@ import Makro from '../models/makro';
 const filesystem = new Filesystem();
 
 const config = ref<Config | null>();
-const newMakro = ref({ tag: '', config: '' });
+const newMakro = ref({ name: '', tag: '', config: '' });
 
 function addNewMakro() {
-    const makroToAdd = new Makro(newMakro.value.tag, newMakro.value.config);
+    const makroToAdd = new Makro(
+        newMakro.value.name,
+        newMakro.value.tag, 
+        newMakro.value.config
+    );
     config.value?.getMakros().push(makroToAdd);
     if(config.value) {
         filesystem.saveConfig( config.value );
