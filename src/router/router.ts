@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
 import HomeView from "./../views/HomeView.vue";
 import EditorView from "./../views/EditorView.vue";
+import ConfigView from "./../views/ConfigView.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -13,6 +14,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '/editor/:filename',
         name: 'editor',
         component: EditorView,
+    },
+    {
+        path: '/config',
+        name: 'config',
+        component: ConfigView
     }
 ];
 
