@@ -13,6 +13,7 @@
                     <td>{{ makro.getName() }}</td>
                     <td>{{ makro.getTag() }}</td>
                     <td>{{ makro.getConfig() }}</td>
+                    <td><button @click="removeMakro( makro.getName() )">Löschen</button></td>
                 </tr>
             </table>
         </div>
@@ -61,8 +62,15 @@ function addNewMakro() {
         newMakro.value.tag, 
         newMakro.value.config
     );
-    config.value?.getMakros().push(makroToAdd);
     if(config.value) {
+        config.value.addMakro(makroToAdd);
+        filesystem.saveConfig( config.value );
+    }
+}
+
+function removeMakro(name: string) {
+    if(config.value) {
+        config.value.removeMakro(name);
         filesystem.saveConfig( config.value );
     }
 }
