@@ -2,9 +2,13 @@ import { ipcMain } from 'electron';
 import fs from 'fs/promises';
 
 class Filesystem {
+    private configPath: string;
+
     constructor(private directoryPath: string) {
+        this.configPath = `${this.directoryPath}/config.json`;
         if (ipcMain) {
             this.setupMainProcessIPC();
+            this.ensureDefaultConfiguration();
         }
     }
 
@@ -33,8 +37,7 @@ class Filesystem {
 
         ipcMain.handle('save-config', async (_, config: string) => {
             try {
-                const filepath = `${this.directoryPath}/config.json`;
-                await fs.writeFile(filepath, config);
+                await fs.writeFile( this.configPath, config );
                 return;
             } catch (error) {
                 console.error('Error writing config');
@@ -44,14 +47,36 @@ class Filesystem {
 
         ipcMain.handle('load-config', async () => {
             try {
-                const filepath = `${this.directoryPath}/config.json`;
-                const filecontent = await fs.readFile( filepath );
+                const filecontent = await fs.readFile( this.configPath );
                 return filecontent;
             } catch (error) {
                 console.error('Error reading config');
                 return;
             }
         })
+    }
+
+    private async ensureDefaultConfiguration() {
+        try {
+            await fs.access( this.configPath );
+        } catch (error) {
+            const defaultConfig = {
+                makros: [
+                    {
+                        name: 'Title',
+                        tag: 'h1',
+                        config: '',
+                    },
+                    {
+                        name: 'Paragraph',
+                        tag: 'p',
+                        config: '',
+                    },
+                ],
+            }
+            const jsonConfig = JSON.stringify( defaultConfig );
+            await fs.writeFile( this.configPath, jsonConfig );
+        }
     }
 }
 
