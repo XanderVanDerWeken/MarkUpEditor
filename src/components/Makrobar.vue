@@ -30,10 +30,6 @@ onMounted( async () => {
     const filesystem = new Filesystem();
     const config = await filesystem.loadConfig();
     makros.value = config?.getMakros();
-    /* TODO: Remove if not necessary anymore
-    makros.value = [
-        new Makro("Title", "h1", "")
-    ];*/
 });
 </script>
 
