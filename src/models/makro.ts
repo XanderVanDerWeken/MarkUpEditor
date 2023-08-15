@@ -1,10 +1,16 @@
 class Makro {
+    private name: string;
     private tag: string;
     private config: string;
 
-    constructor(tag: string, config: string) {
+    constructor(name: string, tag: string, config: string) {
+        this.name = name;
         this.tag = tag;
         this.config = config;
+    }
+
+    public getName(): string {
+        return this.name;
     }
 
     public getTag(): string {

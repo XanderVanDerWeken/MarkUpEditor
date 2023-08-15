@@ -2,6 +2,7 @@
     <nav>
         <h3>MarkUp Editor</h3>
         <button @click="navigate('/')">Home</button>
+        <button @click="navigate('/config')">Settings</button>
     </nav>
 </template>
 

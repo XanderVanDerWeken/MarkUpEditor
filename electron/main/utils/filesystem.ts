@@ -2,9 +2,13 @@ import { ipcMain } from 'electron';
 import fs from 'fs/promises';
 
 class Filesystem {
+    private configPath: string;
+
     constructor(private directoryPath: string) {
+        this.configPath = `${this.directoryPath}/config.json`;
         if (ipcMain) {
             this.setupMainProcessIPC();
+            this.ensureDefaultConfiguration();
         }
     }
 
@@ -30,6 +34,49 @@ class Filesystem {
                 return [];
             }
         })
+
+        ipcMain.handle('save-config', async (_, config: string) => {
+            try {
+                await fs.writeFile( this.configPath, config );
+                return;
+            } catch (error) {
+                console.error('Error writing config');
+                return;
+            }
+        })
+
+        ipcMain.handle('load-config', async () => {
+            try {
+                const filecontent = await fs.readFile( this.configPath, 'utf-8' );
+                return filecontent;
+            } catch (error) {
+                console.error('Error reading config');
+                return;
+            }
+        })
+    }
+
+    private async ensureDefaultConfiguration() {
+        try {
+            await fs.access( this.configPath );
+        } catch (error) {
+            const defaultConfig = {
+                makros: [
+                    {
+                        name: 'Title',
+                        tag: 'h1',
+                        config: '',
+                    },
+                    {
+                        name: 'Paragraph',
+                        tag: 'p',
+                        config: '',
+                    },
+                ],
+            }
+            const jsonConfig = JSON.stringify( defaultConfig );
+            await fs.writeFile( this.configPath, jsonConfig );
+        }
     }
 }
 
