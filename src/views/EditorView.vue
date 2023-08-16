@@ -1,9 +1,10 @@
 <template>
+    <Toolbar />
     <Editor />
 </template>
 
 <script setup lang="ts">
-import Menubar from './../components/Menubar.vue';
+import Toolbar from './../components/Toolbar.vue';
 import Editor from './../components/Editor.vue';
 </script>
 
